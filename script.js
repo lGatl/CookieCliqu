@@ -13,19 +13,6 @@ var bouton		= G("#bouton"),
 multip.innerHTML = "Multiplicateur x" + compteur + " prix" + prix;
 autocq.innerHTML = "Autoclique vitesse x" + auto + " prix" + prixauto;
 
-
-
-bouton.addEventListener('click', function(e) { /*Lorsque l'on clique sur le bouton*/
-	e.preventDefault();
-	cliq();
-
-});
-
-multip.addEventListener('click', function(e) {
-	e.preventDefault();
-	incrementer();
-});
-
 var cliq = function() {
 	score = score + compteur;
 	div.innerHTML = score;
@@ -40,11 +27,6 @@ var incrementer = function() {
 		multip.innerHTML = "Multiplicateur x" + compteur + " prix" + prix;
 	}
 };
-
-autocq.addEventListener('click', function(e) {
-	e.preventDefault();
-	activetimer();
-});
 
 var activetimer = function() {
 	if (score >= prixauto) {
@@ -62,19 +44,32 @@ var activetimer = function() {
 	}
 };
 
+autocq.addEventListener('click', function(e) {
+	e.preventDefault();
+	activetimer();
+});
+
+multip.addEventListener('click', function(e) {
+	e.preventDefault();
+	incrementer();
+});
+
+bouton.addEventListener('click', function(e) { /*Lorsque l'on clique sur le bouton*/
+	e.preventDefault();
+	cliq();
+});
 
 if ( window.addEventListener ) {
-var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
-window.addEventListener("keydown", function(e){
-kkeys.push( e.keyCode );
-if ( kkeys.toString().indexOf( konami ) >= 0 ) {
-kkeys = []                                        /*important de vider la liste d'evenements pour que le convertisseur soit toujours utilisable ;) */
-kkeys = []; /*important de vider la liste d'evenements pour que le convertisseur soit toujours utilisable ;) */
-			score = score+kc*1000
+	var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
+	window.addEventListener("keydown", function(e){
+		kkeys.push( e.keyCode );
+		if ( kkeys.toString().indexOf( konami ) >= 0 ) {
+			kkeys = []; /*important de vider la liste d'evenements pour que le convertisseur soit toujours utilisable ;) */
+			score = score+kc*1000;
 			div.innerHTML = score;
 			kc=kc*10;
-};
-}, true);
+		};
+	}, true);
 };
 
 
