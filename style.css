@@ -1,0 +1,60 @@
+html{
+	margin: 0;
+	padding: 0;
+	height:100%;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+	height: calc(100% - 50px);
+}
+
+header{
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 50px;
+	background-color: rgba(200,200,200,1);
+}
+
+.sections{
+
+	margin-top: 50px;
+	height: 100%;
+
+}
+.section{
+
+	display:inline-block;
+        float: left;
+	height:100%;
+	width: calc(100% / 3);
+}
+
+#gauche{background-color: rgba(50,200,200,1)}
+#milieu{background-color: rgba(200,50,200,1)}
+#droite{background-color: rgba(200,200,50,1)}
+
+#bouton{
+	margin:0;
+	padding:0;
+	width: 100%;
+	height: 50%;
+
+	background: url(cookie.png) center no-repeat;
+	background-size: contain;
+
+
+}
+#affichage{
+	user-select :none;
+	position:absolute;
+	top:25%;
+	left:10%;
+	 color:white;
+	font-size: 4em;
+	display: inline-block;
+	vertical-align: center;
+}

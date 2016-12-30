@@ -1,7 +1,8 @@
 var bouton		= G("#bouton"),
 	div			= G("#affichage"),
 	multip		= G("#multip"),
-	autocq		= G("#autocq"),
+	autocq		= G({id:"autocq"}),
+
 	score		= 0,
 	compteur	= 1,
 	prix			= 50,
