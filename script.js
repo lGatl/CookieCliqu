@@ -29,11 +29,11 @@ window.onresize = redim;
 
 var affsc=function(scor){
 	var sco={val:0,unite:""};
-	if(scor>=1000000000){sco.val=(scor/1000000000);
+	if(scor>=1000000000){sco.val=(scor/1000000000).toFixed(9);
 	sco.unite="Milliards";
-	}else if(scor>=1000000){sco.val=(scor/1000000);
+	}else if(scor>=1000000){sco.val=(scor/1000000).toFixed(6);
 	sco.unite="Millions";
-	}else if(scor>=1000){sco.val=(scor/1000);
+	}else if(scor>=1000){sco.val=(scor/1000).toFixed(3);
 	 	sco.unite="Milliers";
 	}else{
 		sco.val=scor;
@@ -57,7 +57,7 @@ var incrementer = function() {
 		div.innerHTML  	= affsc(score).val;
 		haut.innerHTML = affsc(score).unite;
 		prix = prix * 2;
-		multip.innerHTML = "Multiplicateur x" + compteur + " prix " + prix;
+		multip.innerHTML = "Multiplicateur x" + compteur + "prix\n "+ affsc(prix).val+ affsc(prix).unite;
 	}
 };
 
@@ -74,7 +74,7 @@ var activetimer = function() {
 				cliq();
 			};
 		}, 1000 / (auto));
-		autocq.innerHTML = "Autoclique vitesse x" + auto + " prix " + prixauto;
+		autocq.innerHTML = "Autoclique vitesse x" + auto + " prix\n " + affsc(prixauto).val+ affsc(prixauto).unite;
 	}
 };
 
