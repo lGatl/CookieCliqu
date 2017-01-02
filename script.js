@@ -14,11 +14,24 @@ var bouton		= G("#bouton"),
 
 var redim = function(){
 	var largeur = window.innerWidth;
-	if (largeur<600){
-		bouton.style.lineHeight = largeur/2+"px";
+	var hauteur = window.innerHeight;
+
+		if (largeur<500){
+			if((hauteur-130)>(largeur/2)){
+			bouton.style.lineHeight = largeur/2+"px";
+		}else{
+			bouton.style.lineHeight = hauteur-130+"px";
+
+		}
 	}else{
-		bouton.style.lineHeight = largeur/3+"px";
+		if((hauteur-130)>(largeur/3)){
+			bouton.style.lineHeight = largeur/3+"px";
+		}else{
+			bouton.style.lineHeight = hauteur-130+"px";
+
+		}
 	}
+
 };
 
 multip.innerHTML = "Multiplicateur x" + compteur + " prix" + prix;
