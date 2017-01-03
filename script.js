@@ -36,9 +36,9 @@ var redim = function(){
 
 multip.innerHTML = "Multiplicateur x" + compteur + " prix" + prix;
 autocq.innerHTML = "Autoclique vitesse x" + auto + " prix" + prixauto;
-redim();
+/*redim();*/
 
-window.onresize = redim;
+/*window.onresize = redim;*/
 
 var affsc=function(scor){
 	var sco={val:0,unite:""};
