@@ -74,30 +74,40 @@ var G = function(arg) {
 		}
 		elements.length == 1 ? elements = elements[0] : "";
 
+		elements.vider = function () {
+
+			 while( this.firstChild) {
+   			 	this.removeChild( this.firstChild);
+			 }
+		};
+
 		elements.elthtml = function(arg) {
 
 			var init = function(arg) {
 				var cls = Object.keys(arg);
 
 				for (var i=0; i<cls.length;i++){
-					if (cls[i]!="contenu"&&cls[i]!="tag"&&cls[i]!="prop"){
+					if (cls[i]!="contenu"&&cls[i]!="tag"&&cls[i]!="prop"&&cls[i]!="duree"){
 
 						console.log(
 							"ATTENTION!!!\nla clee "+'%c'+cls[i], "background: rgba(255,0,0,1); color: rgba(0,5,0,1);",
-						 "est erronée dans l'objet argument de .elthtml()\n =>tag, prop ou contenu");
+						 "est erronée dans l'objet argument de .elthtml()\n =>tag, prop, contenu, ou duree");
 
 					}
 				}
 				var contenu = arg.contenu,
 					tag = arg.tag,
-					prop = arg.prop;
+					prop = arg.prop,
+					duree;
+					Number.isInteger(arg.duree)==true ? duree = arg.duree : duree=false;
 
 
 
 				return {
 					contenu: contenu,
 					tag: tag,
-					prop: prop
+					prop: prop,
+					duree: duree
 				};
 			};
 
@@ -108,6 +118,7 @@ var G = function(arg) {
 			    contenu: "text ou html",
 			    tag: "nom du tag de l'element à creer exemple: div"
 			    prop: [".nom" ou "#nom" ou "@cible" ou {class: nom} ou {id: nom} ou {href: cible} ou {title: titre} ... ] ce tableau regroupe toutes les proprietées à ajouter à notre élément, il peut contenir plusieurs elements et les objets qui s'y trouvent aussi!!
+			    duree: entier
 			  };
 
 			On peut donc creer un element avec plusieurs proprietees a plusieurs endroits
@@ -116,7 +127,7 @@ var G = function(arg) {
 			var prepElt = function(arg) {
 
 				arg = init(arg);
-				var tag, prop = "",
+				var tag, prop = "",duree,
 					tag = arg.tag;
 				arg.prop ? prop = arg.prop : prop = "";
 				arg.contenu ? contenu = arg.contenu : contenu = "";
@@ -154,8 +165,9 @@ var G = function(arg) {
 							valeur = Object.values(prop);
 						monLien.setAttribute(cles[0], valeur[0]);
 					}
-				}
+				};
 				monLien.innerHTML = contenu; /*rempli la div avec le texte a afficher*/
+				/*elthtml.moi=*/
 				return monLien;
 			};
 
@@ -165,11 +177,36 @@ var G = function(arg) {
 				for (var s = 0; s < this.length; s++) {
 					monLien = prepElt(arg);
 					this[s].appendChild(monLien);
+					if(arg.duree){
+						(function(T,mL){setTimeout(function(){
+							T.removeChild(mL);
+						}
+						,arg.duree)})(this[s],monLien)
+					}
 				}
 			} else {
 				monLien = prepElt(arg);
-				typeof(this) == "array" ? this[0].appendChild(monLien): this.appendChild(monLien);
+				if(typeof(this) == "array"){
+					this[0].appendChild(monLien)
+					if(arg.duree){
+						(function(T,mL){setTimeout(function(){
+							T.removeChild(mL);
+						}
+						,arg.duree)})(this[0],monLien)
+					}
+				}else{
+					this.appendChild(monLien)
+					if(arg.duree){
+						(function(T,mL){setTimeout(function(){
+							T.removeChild(mL);
+						}
+						,arg.duree)})(this,monLien)
+					}
+				}
+
+
 			}
+
 		};
 
 		return elements;

@@ -1,4 +1,12 @@
+@keyframes slidein {
+  from {
+    		  }
 
+  to {
+    top:0px;
+    left:30%;
+  }
+}
 
 html{
 	margin: 0;
@@ -54,33 +62,51 @@ header h1{
 #droite button{
 	height: 4em;
 	width:100%;
-
 }
 
-
-#bouton{
-
+#coockie{
+	border-radius:50%;
 	background: url(cookie.png) center no-repeat;
 	background-size: contain;
 	font-size: 4em;
    	}
 
-#bouton, #haut{
+#haut{
+	font-size: 2.5em;
 	width: 100%;
-	 color:white;
-
 	min-width:100%;
+}
+
+.geph{
+	position: fixed;
+	color:rgba(230,230,230,0.9);
+	text-shadow: 1px 1px 1px rgba(90,90,90,0.8);
+	font-size: 1.5em;
+	font-weight: bold;
+	z-index: 10;
+	pointer-events:none;
+
+	  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+.innact{
+	background-color: rgba(50,50,50,0.9);
+}
+
+#coockie, #haut{
+
+	 color:white;
 	text-align: center;
 	vertical-align: middle;
+}
 
+.geph, #coockie, #haut,#milieu{
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-}
-#haut{
-	font-size: 2.5em;
 
 
 }
