@@ -23,25 +23,26 @@ var redim = function() {
 
 	if (largeur < 500) {
 		if ((hauteur - 130) > (largeur / 2)) {
-			coockie.style.Height = largeur / 2 + "px";
+			coockie.style.lineHeight = largeur / 2 + "px";
+			coockie.style.marginLeft=0+"px";
+			coockie.style.width  = 100+"%";
 		} else {
-			coockie.style.Height = hauteur - 130 + "px";
+			coockie.style.lineHeight = hauteur - 130 + "px";
 			coockie.style.width  = hauteur - 130 + "px";
-						var marg=(largeur / 3-(hauteur - 130))/2;
+				var marg=((largeur / 2)-(hauteur - 130))/2;
 			coockie.style.marginLeft=marg+"px";
-
-			console.log('coockie.style.Width', coockie.style);
 
 		}
 	} else {
 		if ((hauteur - 130) > (largeur / 3)) {
 			coockie.style.lineHeight = largeur / 3 + "px";
+			coockie.style.marginLeft=0+"px";
+			coockie.style.width  = 100+"%";
 		} else {
 			coockie.style.lineHeight = hauteur - 130 + "px";
 			coockie.style.width  = hauteur - 130 + "px";
-			var marg=(largeur / 3-(hauteur - 130))/2;
+			var marg=((largeur / 3)-(hauteur - 130))/2;
 			coockie.style.marginLeft=marg+"px";
-console.log('coockie.style.Width', coockie.style);
 
 		}
 	}
