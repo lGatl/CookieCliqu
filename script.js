@@ -98,7 +98,7 @@ var affsc = function(scor) {
 	return sco;
 };
 
-var cliq = function() {
+var cliq = function(event) {
 
 	gauche.elthtml({
 		tag: "div",
@@ -226,7 +226,7 @@ multip.addEventListener('click', function(e) {
 
 coockie.addEventListener('click', function(e) { /*Lorsque l'on clique sur le coockie*/
 	e.preventDefault();
-	cliq();
+	cliq(e);
 });
 
 var enf=function(){
