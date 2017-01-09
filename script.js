@@ -230,25 +230,21 @@ coockie.addEventListener('click', function(e) { /*Lorsque l'on clique sur le coo
 });
 
 var enf=function(){
-		this.classList.add("enfonc")
-	this.classList.remove("relach")
+		coockie.classList.add("enfonc")
+	coockie.classList.remove("relach")
 }
 
 var rel=function(){
-		this.classList.remove("enfonc")
-	this.classList.add("relach")
+		coockie.classList.remove("enfonc")
+	coockie.classList.add("relach")
 }
-coockie.addEventListener("mousedown", enf()
+coockie.addEventListener("mousedown", function(){enf()});
 
-	);
+coockie.addEventListener("mouseup", function(){rel()});
 
+coockie.addEventListener("touchstart", function(){enf()})	;
 
-coockie.addEventListener("mouseup", rel());
-
-	coockie.addEventListener("touchstart", enf());
-
-
-coockie.addEventListener("touchend", rel());
+coockie.addEventListener("touchend", function(){rel()});
 /*_________________________________________________*/
 
 var creebouton = function(arg){
