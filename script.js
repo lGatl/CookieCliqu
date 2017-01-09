@@ -239,6 +239,21 @@ coockie.onmouseup = function(){
 	this.classList.remove("enfonc")
 	this.classList.add("relach")
 	};
+
+	coockie.addEventListener("touchstart", function(e){
+	e.preventDefault();
+
+	this.classList.add("enfonc")
+	this.classList.remove("relach")
+
+	});
+
+
+coockie.addEventListener("touchend", function(e){
+	e.preventDefault();
+	this.classList.remove("enfonc")
+	this.classList.add("relach")
+	});
 /*_________________________________________________*/
 
 var creebouton = function(arg){
