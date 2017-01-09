@@ -7,6 +7,7 @@ var coockie = G("#coockie"),
 	gauche = G({
 		id: "gauche"
 	}),
+	bouton=[],
 	score = 0,
 	compteur = 1,
 	prix = 50,
@@ -120,7 +121,7 @@ var cliq = function() {
 
 
 
-
+/*____________________________________________*/
 var incrementer = function() {
 
 	if (score >= prix) {
@@ -152,7 +153,7 @@ var activetimer = function() {
 		autocq.innerHTML = "Autoclique vitesse x" + auto + " prix\n " + affsc(prixauto).val + affsc(prixauto).unite;
 	}
 };
-
+/*_____________________________________________________*/
 var compt = function() {
 
 	score = score + compteur;
@@ -160,6 +161,9 @@ var compt = function() {
 	haut.innerHTML = affsc(score).unite;
 };
 
+
+
+/*________________________________________________*/
 autocq.addEventListener('click', function(e) {
 	e.preventDefault();
 	activetimer();
@@ -174,7 +178,97 @@ coockie.addEventListener('click', function(e) { /*Lorsque l'on clique sur le coo
 	e.preventDefault();
 	cliq();
 });
+/*_________________________________________________*/
 
+var creebouton = function(arg){
+
+	var prix = arg.prix,
+		idt = arg.idt,
+		nom = arg.nom;
+		nb =  arg.nb;
+	return {
+		prix: prix,
+		idt: idt,
+		nom:nom,
+		nb:nb
+	};
+}
+
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+bouton.push(creebouton({
+	prix: 5000,
+	idt: bouton.length+2,
+	nom:"grandmere",
+	nb:0
+}));
+
+
+for (var i = 0; i < bouton.length; i++) {
+			G("#droite").elthtml({
+			contenu: bouton[i].nom+" x" + bouton[i].nb + " prix\n " + affsc(bouton[i].prix).val + affsc(bouton[i].prix).unite,
+			tag: "button",
+			prop: [".innact","#"+bouton[i].idt]
+	});
+}
+
+
+
+
+
+
+
+
+
+
+/*_____________________________________________________*/
 if (window.addEventListener) {
 	var kkeys = [],
 		konami = "38,38,40,40,37,39,37,39,66,65";
