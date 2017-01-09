@@ -15,6 +15,8 @@ var coockie = G("#coockie"),
 	prixauto = 200,
 	kc = 1,
 	auto = 1,
+	wi,
+	hi,
 	timer;
 
 
@@ -226,6 +228,17 @@ coockie.addEventListener('click', function(e) { /*Lorsque l'on clique sur le coo
 	e.preventDefault();
 	cliq();
 });
+coockie.onmousedown = function(){
+	this.classList.add("enfonc")
+	this.classList.remove("relach")
+
+	};
+
+
+coockie.onmouseup = function(){
+	this.classList.remove("enfonc")
+	this.classList.add("relach")
+	};
 /*_________________________________________________*/
 
 var creebouton = function(arg){

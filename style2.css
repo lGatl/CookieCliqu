@@ -1,12 +1,15 @@
 @keyframes slidein {
   from {
+  	opacity:1;
     		  }
 
   to {
-    top:0px;
-    left:40%;
+    top:0;
+    left:32%;
+    opacity:0;
   }
 }
+
 
 html{
 	margin: 0;
@@ -66,7 +69,7 @@ overflow: auto;}
 
 #coockie{
 	border-radius:50%;
-	background: url(cookie.png) center no-repeat;
+	/*background: url(cookie.png) center no-repeat;*/
 	background-size: contain;
 	font-size: 4em;
    	}
@@ -89,9 +92,15 @@ overflow: auto;}
 	  animation-duration: 3s;
   animation-name: slidein;
 }
+.relach{
+	background: url(cookie.png) center no-repeat
+}
+.enfonc{
+	background: url(cookie1.png) center no-repeat;
+}
 
 .innact{
-	background-color: rgba(50,50,50,0.9);
+	background-color: rgba(150,150,150,0.9);
 }
 
 #coockie, #haut{
