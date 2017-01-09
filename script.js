@@ -56,18 +56,28 @@ redim();
 
 window.onresize = redim;
 
-var affsc = function(scor) {
+var testinnact=function(){
+	for(var b=0;b<bouton.length;b++){
+		if (score<bouton[b].prix){
+		 G("#"+(b+2)).classList.add("innact");
+		}else{ G("#"+(b+2)).classList.remove("innact")};
+
+	}
+
 	if (score<prix){
 		 multip.classList.add("innact");
-	}else{multip.classList.remove("innact")};
+	}else{multip.classList.remove("innact")};;
 
 	if (score<prixauto){
 		autocq.classList.add("innact");
-	}else{autocq.classList.remove("innact")};
+	}else{autocq.classList.remove("innact")};;
 	var sco = {
 		val: 0,
 		unite: ""
 	};
+}
+var affsc = function(scor) {
+	sco={}
 	if (scor >= 1000000000) {
 		sco.val = (scor / 1000000000).toFixed(9);
 		sco.unite = "Milliards";
@@ -115,7 +125,7 @@ var cliq = function() {
 		}).style.left = event.clientX + "px";
 
 	}
-	compt();
+	compt(compteur);
 };
 
 
@@ -128,17 +138,18 @@ var incrementer = function() {
 		score = score - prix;
 		prix = prix * 2;
 		compteur++;
-
+		testinnact()
 		coockie.innerHTML = affsc(score).val;
 		haut.innerHTML = affsc(score).unite;
 
-		multip.innerHTML = "Multiplicateur x" + compteur + "prix\n " + affsc(prix).val + affsc(prix).unite;
+		multip.innerHTML = "Multiplicateur x " + compteur + " prix \n " + affsc(prix).val +" " +affsc(prix).unite;
 	}
 };
 
 var activetimer = function() {
 	if (score >= prixauto) {
 		score = score - prixauto;
+		testinnact()
 		coockie.innerHTML = affsc(score).val;
 		haut.innerHTML = affsc(score).unite;
 		prixauto = prixauto * 2;
@@ -147,18 +158,55 @@ var activetimer = function() {
 		clearInterval(timer);
 		var timer = setInterval(function() {
 			if (auto > 0) {
-				compt();
+				compt(compteur);
 			};
 		}, 1000 / (auto));
-		autocq.innerHTML = "Autoclique vitesse x" + auto + " prix\n " + affsc(prixauto).val + affsc(prixauto).unite;
+		autocq.innerHTML = "Autoclique vitesse x " + auto + " prix \n " + affsc(prixauto).val + " "+affsc(prixauto).unite;
 	}
 };
-/*_____________________________________________________*/
-var compt = function() {
 
-	score = score + compteur;
+var activebouton = function (btn) {
+
+	var prixb = bouton[btn.id-2].prix,
+		idt = bouton[btn.id-2].idt,
+		nom = bouton[btn.id-2].nom,
+		nb =  bouton[btn.id-2].nb;
+
+	if (score>prixb) {
+		score = score - prixb;
+		testinnact();
+		coockie.innerHTML = affsc(score).val;
+		haut.innerHTML = affsc(score).unite;
+		prixb = prixb * 2;
+
+		nb++
+		var comp=nb*Math.pow(10,idt)
+
+		if("timer" + idt){clearInterval(eval("timer" + idt))};
+		(function(comp){
+		window["timer" + idt]= setInterval(function() {
+
+				compt(comp);
+
+		}, 2000 / (auto));
+	})(comp)
+		G("#"+( idt)).innerHTML =nom+"nb x "+nb*Math.pow(10,idt)+ " prix \n " + affsc(prixb).val + " "+affsc(prixb).unite;
+
+	}
+
+	return  {prix: prixb,
+			idt: idt,
+			nom: nom,
+			nb: nb}
+};
+
+/*_____________________________________________________*/
+var compt = function(comp) {
+
+	score = score + comp;
 	coockie.innerHTML = affsc(score).val;
 	haut.innerHTML = affsc(score).unite;
+	testinnact()
 };
 
 
@@ -184,7 +232,7 @@ var creebouton = function(arg){
 
 	var prix = arg.prix,
 		idt = arg.idt,
-		nom = arg.nom;
+		nom = arg.nom,
 		nb =  arg.nb;
 	return {
 		prix: prix,
@@ -201,52 +249,52 @@ bouton.push(creebouton({
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 50000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"grandpere",
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 500000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"invasion",
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 5000000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"matrix",
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 50000000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"nucleaira",
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 500000000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"scoot",
 	nb:0
 }));
 
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 5000000000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"boulanger",
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 50000000000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"boucher",
 	nb:0
 }));
 bouton.push(creebouton({
-	prix: 5000,
+	prix: 500000000000,
 	idt: bouton.length+2,
-	nom:"grandmere",
+	nom:"machine magique",
 	nb:0
 }));
 
@@ -255,9 +303,25 @@ for (var i = 0; i < bouton.length; i++) {
 			G("#droite").elthtml({
 			contenu: bouton[i].nom+" x" + bouton[i].nb + " prix\n " + affsc(bouton[i].prix).val + affsc(bouton[i].prix).unite,
 			tag: "button",
-			prop: [".innact","#"+bouton[i].idt]
+			prop: [".innact","#" + bouton[i].idt , ".bouton"]
+			});
+			 window["timer" +bouton[i].idt]={}
+
+}
+
+for (var i = 0; i < G(".bouton").length ; i++) {
+
+	G(".bouton")[i].addEventListener('click', function(e) {
+	e.preventDefault();
+	var th = this;
+	 bouton[this.id-2]=activebouton(th);
+
 	});
 }
+
+testinnact()
+
+
 
 
 
@@ -275,8 +339,9 @@ if (window.addEventListener) {
 	window.addEventListener("keydown", function(e) {
 		kkeys.push(e.keyCode);
 		if (kkeys.toString().indexOf(konami) >= 0) {
-			kkeys = []; /*important de vider la liste d'evenements pour avoir a refaire le code en entier) */
-			score = score + kc * 1000;
+			kkeys = [];/* important de vider la liste d'evenements pour avoir a refaire le code en entier)*/
+			score = score + kc * 100000;
+			testinnact()
 			coockie.innerHTML = affsc(score).val;
 			haut.innerHTML = affsc(score).unite;
 			kc = kc * 10;
