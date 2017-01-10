@@ -19,7 +19,7 @@ var coockie = G("#coockie"),
 	hi,
 	timer;
 
-
+/*---------------redimentionne le cookie en fonction de la fenetre--------------*/
 var redim = function() {
 	var largeur = window.innerWidth;
 	var hauteur = window.innerHeight;
@@ -46,18 +46,16 @@ var redim = function() {
 			coockie.style.width  = hauteur - 130 + "px";
 			var marg=((largeur / 3)-(hauteur - 130))/2;
 			coockie.style.marginLeft=marg+"px";
-
 		}
 	}
-
 };
-
+/*---------------------------------------------------------------------------*/
 multip.innerHTML = "Multiplicateur x" + compteur + " prix" + prix;
 autocq.innerHTML = "Autoclique vitesse x" + auto + " prix" + prixauto;
+/*active redim*/
 redim();
-
 window.onresize = redim;
-
+/*---------------test si il faut mettre la class desactiver aux boutons-----------------*/
 var testinnact=function(){
 	for(var b=0;b<bouton.length;b++){
 		if (score<bouton[b].prix){
@@ -78,6 +76,7 @@ var testinnact=function(){
 		unite: ""
 	};
 }
+/*---------converti le score de maniere à l'afficher (milliers) (millions)....-------------*/
 var affsc = function(scor) {
 	sco={}
 	if (scor >= 1000000000) {
@@ -97,7 +96,7 @@ var affsc = function(scor) {
 
 	return sco;
 };
-
+/*------au clique sur le cookie-> cree une div temporaite class geph au niveau de la souris------*/
 var cliq = function(event) {
 
 	gauche.elthtml({
@@ -133,7 +132,7 @@ var cliq = function(event) {
 
 
 
-/*____________________________________________*/
+/*-------------ajoute  1 au bouton  mult----------------*/
 var incrementer = function() {
 
 	if (score >= prix) {
@@ -147,7 +146,7 @@ var incrementer = function() {
 		multip.innerHTML = "Multiplicateur x " + compteur + " prix \n " + affsc(prix).val +" " +affsc(prix).unite;
 	}
 };
-
+/*-------------ajoute  1 au bouton autocliq--------------*/
 var activetimer = function() {
 	if (score >= prixauto) {
 		score = score - prixauto;
@@ -166,7 +165,7 @@ var activetimer = function() {
 		autocq.innerHTML = "Autoclique vitesse x " + auto + " prix \n " + affsc(prixauto).val + " "+affsc(prixauto).unite;
 	}
 };
-
+/*--------active les autres bouttons-- param bouton à activer-----*/
 var activebouton = function (btn) {
 
 	var prixb = bouton[btn.id-2].prix,
@@ -195,14 +194,14 @@ var activebouton = function (btn) {
 		G("#"+( idt)).innerHTML =nom+"nb x "+nb*Math.pow(10,idt)+ " prix \n " + affsc(prixb).val + " "+affsc(prixb).unite;
 
 	}
-
+	/*retourn les nouvelles valeurs à mettre dans le tableau bouton*/
 	return  {prix: prixb,
 			idt: idt,
 			nom: nom,
 			nb: nb}
 };
 
-/*_____________________________________________________*/
+/*-----------------decompte de l'achat, affiche-----------------------*/
 var compt = function(comp) {
 
 	score = score + comp;
@@ -213,7 +212,7 @@ var compt = function(comp) {
 
 
 
-/*________________________________________________*/
+/*----------------capture les cliques et lance les fonctions-------*/
 autocq.addEventListener('click', function(e) {
 	e.preventDefault();
 	activetimer();
@@ -228,7 +227,7 @@ coockie.addEventListener('click', function(e) { /*Lorsque l'on clique sur le coo
 	e.preventDefault();
 	cliq(e);
 });
-
+/*-----------------------Animation bouton enfoncé------------------------------*/
 var enf=function(){
 		coockie.classList.add("enfonc")
 	coockie.classList.remove("relach")
@@ -247,6 +246,8 @@ coockie.addEventListener("touchstart", function(){enf()})	;
 coockie.addEventListener("touchend", function(){rel()});
 /*_________________________________________________*/
 
+/*================genere des boutons à partir d'un tableau d'objet===================-*/
+/*------prepare les variables------*/
 var creebouton = function(arg){
 
 	var prix = arg.prix,
@@ -260,7 +261,7 @@ var creebouton = function(arg){
 		nb:nb
 	};
 }
-
+/*---------creation du tableau en question-------*/
 bouton.push(creebouton({
 	prix: 5000,
 	idt: bouton.length+2,
@@ -317,7 +318,7 @@ bouton.push(creebouton({
 	nb:0
 }));
 
-
+/*--------Genere les boutons----------*/
 for (var i = 0; i < bouton.length; i++) {
 			G("#droite").elthtml({
 			contenu: bouton[i].nom+" x" + bouton[i].nb + " prix\n " + affsc(bouton[i].prix).val + affsc(bouton[i].prix).unite,
@@ -327,7 +328,7 @@ for (var i = 0; i < bouton.length; i++) {
 			 window["timer" +bouton[i].idt]={}
 
 }
-
+/*------------active les cliq sur les boutons--------------*/
 for (var i = 0; i < G(".bouton").length ; i++) {
 
 	G(".bouton")[i].addEventListener('click', function(e) {
@@ -338,7 +339,7 @@ for (var i = 0; i < G(".bouton").length ; i++) {
 	});
 }
 
-testinnact()
+testinnact();
 
 
 
@@ -351,7 +352,7 @@ testinnact()
 
 
 
-/*_____________________________________________________*/
+/*==================KONAMI CODE============================*/
 if (window.addEventListener) {
 	var kkeys = [],
 		konami = "38,38,40,40,37,39,37,39,66,65";

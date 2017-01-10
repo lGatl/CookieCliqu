@@ -220,10 +220,10 @@ var G = function(arg) {
 			'-"balise"\n',
 			'{id:"identifient"}\n',
 			'-{class:"classe"}\n',
-			'-{tag:"classe"}\n',
-			"-tableau contenant les exemples si dessus\n",
+			'-{tag:"balise"}\n',
+			"-tableau contenant les exemples ci dessus\n",
 			"Les objets peuvent contenir plusieurs cle/val\n",
-			"G() retourne alors un element ou un tableau d'elements"
+			"G() retourne alors un element ou un tableau d'elements si plusieurs"
 			);
 	}
 
