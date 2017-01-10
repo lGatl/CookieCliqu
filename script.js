@@ -1,3 +1,4 @@
+/*~~~~~~~~~~~PREPARATION DES VARIABLES~~~~~~~~~~~~~~*/
 var coockie = G("#coockie"),
 	haut = G("#haut"),
 	multip = G("#multip"),
@@ -18,7 +19,7 @@ var coockie = G("#coockie"),
 	wi,
 	hi,
 	timer;
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*---------------redimentionne le cookie en fonction de la fenetre--------------*/
 var redim = function() {
 	var largeur = window.innerWidth;
@@ -142,7 +143,7 @@ var activetimer = function() {
 
 /*================genere des boutons à partir d'un tableau d'objet===================-*/
 /*------prepare les variables------*/
-var creebouton = function(arg){
+var creebouton 	= function(arg){
 
 	var prix = arg.prix,
 		idt = arg.idt,
@@ -226,22 +227,65 @@ var generebouton = function(bouton){
 			tag: "button",
 			prop: [".innact","#" + bouton[i].idt , ".bouton"]
 		});
+
+
 		window["timer" +bouton[i].idt]={};
 	}
 };
 
+var creebulle = function(bouton,i){
+
+	G("#droite").elthtml({
+		contenu: "genere "+ bouton[i].nb*Math.pow(10,bouton[i].idt) + " cookies toutes les 2 secondes",
+		tag: "div",
+		prop: [".bulle","#b"+bouton[i].idt]
+	})
+}
+
+var modifbulle = function(bouton,it){
+
+
+
+	G(".bulle","#b"+it).innerHTML= "genere "+ bouton[it-2].nb*Math.pow(10,it) + " cookies toutes les 2 secondes";
+}
+
+var supprbulle = function(bouton,i){
+
+	G("#droite").removeChild(G("#b"+bouton[i].idt));
+
+}
+
 /*------------active les cliq sur les boutons--------------*/
 var activeclicqbouton=function(){
 
-	for (var i = 0; i < G(".bouton").length ; i++) {
-
+	for (var u = 0; u < G(".bouton").length ; u++) {
+		(function(i){
 		G(".bouton")[i].addEventListener('click', function(e) {
-		e.preventDefault();
-		var th = this;
-		 bouton[this.id-2]=activebouton(th);
-		 testinnact();
+			e.preventDefault();
+			var th = this;
+			 bouton[this.id-2]=activebouton(th);
+			 modifbulle(bouton,i+2);
+			 testinnact();
+		});
+
+		G(".bouton")[i].addEventListener("mouseover", function(event){
+
+				creebulle(bouton,i,event);
+
+
+			G(".bouton")[i].addEventListener("mousemove", function(event){
+				G("#b"+bouton[i].idt).style.top=event.clientY + "px";
+				G("#b"+bouton[i].idt).style.left=event.clientX + "px";
+			});
+		});
+
+		G(".bouton")[i].addEventListener("mouseout", function(){
+			supprbulle(bouton,i)
+
+
 
 		});
+		})(u)
 	}
 };
 
@@ -272,9 +316,10 @@ var activebouton = function (btn) {
 
 		}, 2000 / (auto));
 	})(comp)
-		G("#"+( idt)).innerHTML =nom+"x "+nb*Math.pow(10,idt)+ " prix \n " + affsc(prixb).val + " "+affsc(prixb).unite;
+		G("#"+( idt)).innerHTML =nom+" x"+nb+ " prix \n " + affsc(prixb).val + " "+affsc(prixb).unite;
 
 	}
+
 	/*retourn les nouvelles valeurs à mettre dans le tableau bouton*/
 	return  {prix: prixb,
 			idt: idt,
@@ -330,23 +375,25 @@ coockie.addEventListener('click', function(e) {
 	cliq(e);
 });
 /*-----------------------Animation bouton enfoncé------------------------------*/
-var enf=function(){
+var enf = function(){
 	coockie.classList.add("enfonc");
 	coockie.classList.remove("relach");
 }
 
-var rel=function(){
+var rel = function(){
 	coockie.classList.remove("enfonc");
 	coockie.classList.add("relach");
 };
 
-coockie.addEventListener("mousedown", function(){enf()});
+coockie.addEventListener("mousedown"	, function(){enf()});
 
-coockie.addEventListener("mouseup", function(){rel()});
+coockie.addEventListener("mouseup"	, function(){rel()});
 
-coockie.addEventListener("touchstart", function(){enf()});
+coockie.addEventListener("touchstart"	, function(){enf()});
 
-coockie.addEventListener("touchend", function(){rel()});
+coockie.addEventListener("touchend"	, function(){rel()});
+
+
 
 /*==================KONAMI CODE============================*/
 if (window.addEventListener) {
@@ -365,6 +412,7 @@ if (window.addEventListener) {
 		};
 	}, true);
 };
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*=================A-l'ouverture du document================*/
 multip.innerHTML  = "Multiplicateur x"         + compteur + " prix" + prix;

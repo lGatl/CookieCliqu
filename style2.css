@@ -4,9 +4,9 @@
     		  }
 
   to {
-    top:0;
-    left:32%;
-    opacity:0;
+    	top:0;
+    	left:32%;
+    	opacity:0;
   }
 }
 
@@ -38,13 +38,10 @@ header h1{
 }
 
 .sections{
-
-
 	height: 100%;
-
 }
-.section{
 
+.section{
 	display:inline-block;
         float: left;
 	height:100%;
@@ -52,19 +49,21 @@ header h1{
 }
 
 #gauche{background-color: rgba(50,200,200,1);
-	}
+}
+
 #milieu{
 	background-color: rgba(200,50,200,1);
 	display:block;
-		;
 }
-#droite{background-color: rgba(200,200,50,1);
-overflow: auto;}
+
+#droite{
+	background-color: rgba(200,200,50,1);
+	overflow: auto;
+}
 
 #droite button{
 	height: 4em;
 	width:100%;
-
 }
 
 #coockie{
@@ -89,9 +88,21 @@ overflow: auto;}
 	z-index: 10;
 	pointer-events:none;
 
-	  animation-duration: 3s;
-  animation-name: slidein;
+	animation-duration: 3s;
+  	animation-name: slidein;
 }
+.bulle{
+	pointer-events:none;
+
+	left:0+"px";
+	position: fixed;
+	background: rgba(230,190,0,0.5);
+	padding: 2px;
+	z-index: 10;
+
+}
+
+
 .relach{
 	background: url(cookie.png) center no-repeat;
 }
@@ -105,7 +116,7 @@ overflow: auto;}
 
 #coockie, #haut{
 
-	 color:white;
+	color:white;
 	text-align: center;
 	vertical-align: middle;
 }
