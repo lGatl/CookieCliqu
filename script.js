@@ -241,10 +241,10 @@ var rel=function(){
 coockie.addEventListener("mousedown", function(){enf()});
 
 coockie.addEventListener("mouseup", function(){rel()});
-
+/*
 coockie.addEventListener("touchstart", function(){enf()})	;
 
-coockie.addEventListener("touchend", function(){rel()});
+coockie.addEventListener("touchend", function(){rel()});*/
 /*_________________________________________________*/
 
 var creebouton = function(arg){
