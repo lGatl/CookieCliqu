@@ -73,7 +73,7 @@ var G = function(arg) {
 			}
 		}
 		elements.length == 1 ? elements = elements[0] : "";
-
+/*fonction pour vider un element du DOM*/
 		elements.vider = function () {
 
 			 while( this.firstChild) {
@@ -212,7 +212,7 @@ var G = function(arg) {
 		return elements;
 	}
 	catch (e) {
-		var text="mauvaise utilisation de G()";
+		var text="element non trouvé ou mauvaise utilisation de G()";
 			console.log('%c'+text, "background: rgba(0,255,0,1); color: rgba(0,0,255,1);","\n ",
 			"Arguments possible :\n ",
 			'-"#identifient"\n',

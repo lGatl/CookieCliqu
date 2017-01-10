@@ -49,53 +49,7 @@ var redim = function() {
 		}
 	}
 };
-/*---------------------------------------------------------------------------*/
-multip.innerHTML = "Multiplicateur x" + compteur + " prix" + prix;
-autocq.innerHTML = "Autoclique vitesse x" + auto + " prix" + prixauto;
-/*active redim*/
-redim();
-window.onresize = redim;
-/*---------------test si il faut mettre la class desactiver aux boutons-----------------*/
-var testinnact=function(){
-	for(var b=0;b<bouton.length;b++){
-		if (score<bouton[b].prix){
-		 G("#"+(b+2)).classList.add("innact");
-		}else{ G("#"+(b+2)).classList.remove("innact")};
 
-	}
-
-	if (score<prix){
-		 multip.classList.add("innact");
-	}else{multip.classList.remove("innact")};;
-
-	if (score<prixauto){
-		autocq.classList.add("innact");
-	}else{autocq.classList.remove("innact")};;
-	var sco = {
-		val: 0,
-		unite: ""
-	};
-}
-/*---------converti le score de maniere à l'afficher (milliers) (millions)....-------------*/
-var affsc = function(scor) {
-	sco={}
-	if (scor >= 1000000000) {
-		sco.val = (scor / 1000000000).toFixed(9);
-		sco.unite = "Milliards";
-	} else if (scor >= 1000000) {
-		sco.val = (scor / 1000000).toFixed(6);
-		sco.unite = "Millions";
-	} else if (scor >= 1000) {
-		sco.val = (scor / 1000).toFixed(3);
-		sco.unite = "Milliers";
-	} else {
-		sco.val = scor;
-		sco.unite = "";
-
-	};
-
-	return sco;
-};
 /*------au clique sur le cookie-> cree une div temporaite class geph au niveau de la souris------*/
 var cliq = function(event) {
 
@@ -130,7 +84,25 @@ var cliq = function(event) {
 };
 
 
+/*---------converti le score de maniere à l'afficher (milliers) (millions)....-------------*/
+var affsc = function(scor) {
+	sco={};
+	if (scor >= 1000000000) {
+		sco.val = (scor / 1000000000).toFixed(9);
+		sco.unite = "Milliards";
+	} else if (scor >= 1000000) {
+		sco.val = (scor / 1000000).toFixed(6);
+		sco.unite = "Millions";
+	} else if (scor >= 1000) {
+		sco.val = (scor / 1000).toFixed(3);
+		sco.unite = "Milliers";
+	} else {
+		sco.val = scor;
+		sco.unite = "";
 
+	}
+	return sco;
+};
 
 /*-------------ajoute  1 au bouton  mult----------------*/
 var incrementer = function() {
@@ -165,7 +137,115 @@ var activetimer = function() {
 		autocq.innerHTML = "Autoclique vitesse x " + auto + " prix \n " + affsc(prixauto).val + " "+affsc(prixauto).unite;
 	}
 };
-/*--------active les autres bouttons-- param bouton à activer-----*/
+
+
+
+/*================genere des boutons à partir d'un tableau d'objet===================-*/
+/*------prepare les variables------*/
+var creebouton = function(arg){
+
+	var prix = arg.prix,
+		idt = arg.idt,
+		nom = arg.nom,
+		nb =  arg.nb;
+	return {
+		prix: prix,
+		idt: idt,
+		nom:nom,
+		nb:nb
+	};
+};
+
+/*---------creation du tableau bouton-------*/
+var creetabbouton = function(){
+	var bouton=[]
+	bouton.push(creebouton({
+		prix: 5000,
+		idt: bouton.length+2,
+		nom:"grandmere",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 50000,
+		idt: bouton.length+2,
+		nom:"grandpere",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 500000,
+		idt: bouton.length+2,
+		nom:"invasion",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 5000000,
+		idt: bouton.length+2,
+		nom:"matrix",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 50000000,
+		idt: bouton.length+2,
+		nom:"nucleaira",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 500000000,
+		idt: bouton.length+2,
+		nom:"scoot",
+		nb:0
+	}));
+
+	bouton.push(creebouton({
+		prix: 5000000000,
+		idt: bouton.length+2,
+		nom:"boulanger",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 50000000000,
+		idt: bouton.length+2,
+		nom:"boucher",
+		nb:0
+	}));
+	bouton.push(creebouton({
+		prix: 500000000000,
+		idt: bouton.length+2,
+		nom:"machine magique",
+		nb:0
+	}));
+	return bouton
+}
+
+/*--------Genere les boutons----------*/
+var generebouton = function(bouton){
+
+	for (var i = 0; i < bouton.length; i++) {
+		G("#droite").elthtml({
+			contenu: bouton[i].nom+" x" + bouton[i].nb + " prix\n " + affsc(bouton[i].prix).val + affsc(bouton[i].prix).unite,
+			tag: "button",
+			prop: [".innact","#" + bouton[i].idt , ".bouton"]
+		});
+		window["timer" +bouton[i].idt]={};
+	}
+};
+
+/*------------active les cliq sur les boutons--------------*/
+var activeclicqbouton=function(){
+
+	for (var i = 0; i < G(".bouton").length ; i++) {
+
+		G(".bouton")[i].addEventListener('click', function(e) {
+		e.preventDefault();
+		var th = this;
+		 bouton[this.id-2]=activebouton(th);
+		 testinnact();
+
+		});
+	}
+};
+
+/*--------active les  bouttons (si acheté) param bouton à activer-----*/
 var activebouton = function (btn) {
 
 	var prixb = bouton[btn.id-2].prix,
@@ -175,9 +255,10 @@ var activebouton = function (btn) {
 
 	if (score>prixb) {
 		score = score - prixb;
-		testinnact();
+
 		coockie.innerHTML = affsc(score).val;
 		haut.innerHTML = affsc(score).unite;
+
 		prixb = prixb * 2;
 
 		nb++
@@ -191,7 +272,7 @@ var activebouton = function (btn) {
 
 		}, 2000 / (auto));
 	})(comp)
-		G("#"+( idt)).innerHTML =nom+"nb x "+nb*Math.pow(10,idt)+ " prix \n " + affsc(prixb).val + " "+affsc(prixb).unite;
+		G("#"+( idt)).innerHTML =nom+"x "+nb*Math.pow(10,idt)+ " prix \n " + affsc(prixb).val + " "+affsc(prixb).unite;
 
 	}
 	/*retourn les nouvelles valeurs à mettre dans le tableau bouton*/
@@ -210,147 +291,62 @@ var compt = function(comp) {
 	testinnact()
 };
 
+/*---------------test si il faut mettre la class desactiver aux boutons-----------------*/
+var testinnact = function(){
+	for(var b=0;b<bouton.length;b++){
+			if (score<bouton[b].prix){
+			 G("#"+(b+2)).classList.add("innact");
+			}else{ G("#"+(b+2)).classList.remove("innact")}
+	}
+	if (score<prix){
+		 multip.classList.add("innact");
+	}else{multip.classList.remove("innact")};;
 
+	if (score<prixauto){
+		autocq.classList.add("innact");
+	}else{autocq.classList.remove("innact")};;
+	var sco = {
+		val: 0,
+		unite: ""
+	};
+}
+
+/*<<<<<<<<<<<<<<EVENEMENTS>>>>>>>>>>>>>>>>>>>>>>>*/
 
 /*----------------capture les cliques et lance les fonctions-------*/
-autocq.addEventListener('click', function(e) {
-	e.preventDefault();
-	activetimer();
-});
-
 multip.addEventListener('click', function(e) {
 	e.preventDefault();
 	incrementer();
 });
 
-coockie.addEventListener('click', function(e) { /*Lorsque l'on clique sur le coockie*/
+autocq.addEventListener('click', function(e) {
+	e.preventDefault();
+	activetimer();
+});
+
+/*Lorsque l'on clique sur le coockie*/
+coockie.addEventListener('click', function(e) {
 	e.preventDefault();
 	cliq(e);
 });
 /*-----------------------Animation bouton enfoncé------------------------------*/
 var enf=function(){
-		coockie.classList.add("enfonc")
-	coockie.classList.remove("relach")
+	coockie.classList.add("enfonc");
+	coockie.classList.remove("relach");
 }
 
 var rel=function(){
-		coockie.classList.remove("enfonc")
-	coockie.classList.add("relach")
-}
+	coockie.classList.remove("enfonc");
+	coockie.classList.add("relach");
+};
+
 coockie.addEventListener("mousedown", function(){enf()});
 
 coockie.addEventListener("mouseup", function(){rel()});
 
-coockie.addEventListener("touchstart", function(){enf()})	;
+coockie.addEventListener("touchstart", function(){enf()});
 
 coockie.addEventListener("touchend", function(){rel()});
-/*_________________________________________________*/
-
-/*================genere des boutons à partir d'un tableau d'objet===================-*/
-/*------prepare les variables------*/
-var creebouton = function(arg){
-
-	var prix = arg.prix,
-		idt = arg.idt,
-		nom = arg.nom,
-		nb =  arg.nb;
-	return {
-		prix: prix,
-		idt: idt,
-		nom:nom,
-		nb:nb
-	};
-}
-/*---------creation du tableau en question-------*/
-bouton.push(creebouton({
-	prix: 5000,
-	idt: bouton.length+2,
-	nom:"grandmere",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 50000,
-	idt: bouton.length+2,
-	nom:"grandpere",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 500000,
-	idt: bouton.length+2,
-	nom:"invasion",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 5000000,
-	idt: bouton.length+2,
-	nom:"matrix",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 50000000,
-	idt: bouton.length+2,
-	nom:"nucleaira",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 500000000,
-	idt: bouton.length+2,
-	nom:"scoot",
-	nb:0
-}));
-
-bouton.push(creebouton({
-	prix: 5000000000,
-	idt: bouton.length+2,
-	nom:"boulanger",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 50000000000,
-	idt: bouton.length+2,
-	nom:"boucher",
-	nb:0
-}));
-bouton.push(creebouton({
-	prix: 500000000000,
-	idt: bouton.length+2,
-	nom:"machine magique",
-	nb:0
-}));
-
-/*--------Genere les boutons----------*/
-for (var i = 0; i < bouton.length; i++) {
-			G("#droite").elthtml({
-			contenu: bouton[i].nom+" x" + bouton[i].nb + " prix\n " + affsc(bouton[i].prix).val + affsc(bouton[i].prix).unite,
-			tag: "button",
-			prop: [".innact","#" + bouton[i].idt , ".bouton"]
-			});
-			 window["timer" +bouton[i].idt]={}
-
-}
-/*------------active les cliq sur les boutons--------------*/
-for (var i = 0; i < G(".bouton").length ; i++) {
-
-	G(".bouton")[i].addEventListener('click', function(e) {
-	e.preventDefault();
-	var th = this;
-	 bouton[this.id-2]=activebouton(th);
-
-	});
-}
-
-testinnact();
-
-
-
-
-
-
-
-
-
-
-
 
 /*==================KONAMI CODE============================*/
 if (window.addEventListener) {
@@ -361,10 +357,26 @@ if (window.addEventListener) {
 		if (kkeys.toString().indexOf(konami) >= 0) {
 			kkeys = [];/* important de vider la liste d'evenements pour avoir a refaire le code en entier)*/
 			score = score + kc * 100000;
-			testinnact()
+
 			coockie.innerHTML = affsc(score).val;
 			haut.innerHTML = affsc(score).unite;
+			testinnact()
 			kc = kc * 10;
 		};
 	}, true);
 };
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*=================A-l'ouverture du document================*/
+multip.innerHTML  = "Multiplicateur x"         + compteur + " prix" + prix;
+autocq.innerHTML = "Autoclique vitesse x" + auto            + " prix" + prixauto;
+
+/*active redim*/
+redim();
+window.onresize = redim;
+
+ bouton=creetabbouton();
+ generebouton(bouton);
+ activeclicqbouton();
+ testinnact();
+/*============================================================*/
+
