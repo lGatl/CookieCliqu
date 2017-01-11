@@ -93,8 +93,7 @@ header h1{
 }
 .bulle{
 	pointer-events:none;
-
-	left:0+"px";
+	max-width:200px;
 	position: fixed;
 	background: rgba(230,190,0,0.5);
 	padding: 2px;

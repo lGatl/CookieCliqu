@@ -215,8 +215,8 @@ var creetabbouton = function(){
 		nom:"machine magique",
 		nb:0
 	}));
-	return bouton
-}
+	return bouton;
+};
 
 /*--------Genere les boutons----------*/
 var generebouton = function(bouton){
@@ -236,24 +236,24 @@ var generebouton = function(bouton){
 var creebulle = function(bouton,i){
 
 	G("#droite").elthtml({
-		contenu: "genere "+ bouton[i].nb*Math.pow(10,bouton[i].idt) + " cookies toutes les 2 secondes",
+		contenu: "genere "+ bouton[i].nb*Math.pow(10,bouton[i].idt) + " cookies\n toutes les 2 secondes",
 		tag: "div",
 		prop: [".bulle","#b"+bouton[i].idt]
-	})
-}
+	});
+};
 
 var modifbulle = function(bouton,it){
 
 
 
-	G(".bulle","#b"+it).innerHTML= "genere "+ bouton[it-2].nb*Math.pow(10,it) + " cookies toutes les 2 secondes";
-}
+	G(".bulle","#b"+it).innerHTML= "genere "+ bouton[it-2].nb*Math.pow(10,it) + " cookies\n toutes les 2 secondes";
+};
 
 var supprbulle = function(bouton,i){
 
 	G("#droite").removeChild(G("#b"+bouton[i].idt));
 
-}
+};
 
 /*------------active les cliq sur les boutons--------------*/
 var activeclicqbouton=function(){
@@ -275,7 +275,10 @@ var activeclicqbouton=function(){
 
 			G(".bouton")[i].addEventListener("mousemove", function(event){
 				G("#b"+bouton[i].idt).style.top=event.clientY + "px";
-				G("#b"+bouton[i].idt).style.left=event.clientX + "px";
+				G("#b"+bouton[i].idt).style.left=event.clientX-207 +"px";
+
+				/*console.log(G("#b"+bouton[i].idt).style.width);*/
+
 			});
 		});
 
